@@ -1,0 +1,28 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/aside\.scss}line{font-family:\000031}}
+aside {
+  width: 200px;
+  height: 100%;
+  background-color: #20B2AA;
+  text-align: center;
+  padding: 0 10px;
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/aside\.scss}line{font-family:\0000311}}
+aside img:first-child {
+  width: 100px;
+  margin-top: 50px;
+  border-radius: 50%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/aside\.scss}line{font-family:\0000316}}
+aside p {
+  margin: 40px 0;
+  color: #fff;
+  font-size: 16px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/aside\.scss}line{font-family:\0000321}}
+aside img:last-child {
+  width: 150px;
+}

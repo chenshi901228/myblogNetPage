@@ -1,0 +1,188 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\000031}}
+article {
+  width: 100%;
+  min-width: 1400px;
+  padding: 50px 0 0 200px;
+  background-color: #EDEDED;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\000036}}
+article .header {
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #E1E1E1;
+  display: flex;
+  align-items: center;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000313}}
+article .header img {
+  width: 20px;
+  margin: 0 10px 0 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000317}}
+article .header p {
+  color: #666;
+  font-size: 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000320}}
+article .header p a {
+  text-decoration: none;
+  color: #333;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000326}}
+article .main {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000331}}
+article .main .list {
+  padding-left: 0;
+  margin: 0;
+  width: 70%;
+  border: 1px solid #E1E1E1;
+  background-color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000337}}
+article .main .list li {
+  border-bottom: 1px solid #E1E1E1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000341}}
+article .main .list li:hover > a {
+  color: #09b1b9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000345}}
+article .main .list li > a {
+  display: block;
+  text-decoration: none;
+  padding-left: 20px;
+  line-height: 40px;
+  color: #333;
+  background-color: #FFF;
+  border-left: 4px solid #09b1b9;
+  border-bottom: 1px solid #E1E1E1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000355}}
+article .main .list li p {
+  margin: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000358}}
+article .main .list li .item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000365}}
+article .main .list li .item-info .left > p {
+  font-size: 14px;
+  color: #616060;
+  margin: 0 0 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000375}}
+article .main .list li .item-info .left .tag {
+  display: flex;
+  align-items: center;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000378}}
+article .main .list li .item-info .left .tag p, article .main .list li .item-info .left .tag a {
+  font-size: 14px;
+  margin: 0 10px;
+  color: #666;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000383}}
+article .main .list li .item-info .left .tag a {
+  text-decoration: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000385}}
+article .main .list li .item-info .left .tag a:hover {
+  color: #09b1b9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000389}}
+article .main .list li .item-info .left .tag img {
+  width: 16px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\0000394}}
+article .main .list li .item-info .show-img {
+  width: 150px;
+  margin-left: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003101}}
+article .main .right {
+  width: 28%;
+  height: 500px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003105}}
+article .main .right .right-item {
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003107}}
+article .main .right .right-item .right-top {
+  display: flex;
+  align-items: center;
+  background-color: #F8F8F8;
+  border: 1px solid #E1E1E1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003112}}
+article .main .right .right-item .right-top .right-top-img {
+  border-right: 1px solid #E1E1E1;
+  padding: 8px 10px;
+  font-size: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003116}}
+article .main .right .right-item .right-top .right-top-img img {
+  width: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003120}}
+article .main .right .right-item .right-top p {
+  display: inline-block;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 700;
+  color: #666;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003128}}
+article .main .right .right-item .right-item-list {
+  padding-left: 0;
+  margin: 0;
+  border: 1px solid #E1E1E1;
+  background-color: #fff;
+  padding: 16px 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003134}}
+article .main .right .right-item .right-item-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003139}}
+article .main .right .right-item .right-item-list li a {
+  text-decoration: none;
+  color: #333;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003146}}
+article .main .right .right-item .right-item-list li a:hover {
+  color: #09B1B9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003149}}
+article .main .right .right-item .right-item-list li a img {
+  width: 20px;
+  vertical-align: middle;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/csTest\/myblog\/public\/sass\/classifyItem\.scss}line{font-family:\00003154}}
+article .main .right .right-item .right-item-list li p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
