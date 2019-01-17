@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-
-export let BaseUrl = "http://localhost:3001"  //服务器地址
+import { baseUrl } from '../config/globconf'
 
 
 /**
@@ -15,13 +14,13 @@ export function Request(url, method, params = {}) {
 
     if (method === "post") {
         return new Promise((resolve, reject) => {
-            axios.post(BaseUrl + url, params)
+            axios.post(baseUrl + url, params)
                 .then(res => { resolve(res) })
                 .catch(error => { reject(error) })
         })
     } else {
         return new Promise((resolve, reject) => {
-            axios.get(BaseUrl + url, params)
+            axios.get(baseUrl + url, params)
                 .then(res => { resolve(res) })
                 .catch(error => { reject(error) })
         })

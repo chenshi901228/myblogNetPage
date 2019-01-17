@@ -6,7 +6,6 @@ import 'antd/dist/antd.css'
 
 
 import App from './view/home'
-// import App from './view/test'
 
 ReactDOM.render(
     <BrowserRouter>

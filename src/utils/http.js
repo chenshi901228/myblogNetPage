@@ -1,6 +1,6 @@
 
-// let common_url = 'http://nbonew.xni8.cn/mapi/index.php?';  //服务器地址
-let common_url = 'http://localhost:3001/';  //服务器地址
+import { baseUrl } from '../config/globconf'
+let common_url = baseUrl;
 // let token = '';
 /**
  * @param {string} url 接口地址
