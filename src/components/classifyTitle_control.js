@@ -12,7 +12,7 @@ class ClassifyForm extends Component {
         e.preventDefault();
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
-                let res = await fetchRequest("classifyTitle/newTitle", "POST", values)
+                let res = await fetchRequest("/classifyTitle/newTitle", "POST", values)
                 if (res.status === "ok") {
                     message.success(res.msg)
                     this.props.form.resetFields();
