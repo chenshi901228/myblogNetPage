@@ -6,4 +6,5 @@
  */
 
 export const baseUrl = "http://myblognetapi.chenshiservice.cn"
+// export const baseUrl = "http://localhost:3001"
 
