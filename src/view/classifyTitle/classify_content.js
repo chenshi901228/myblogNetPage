@@ -98,7 +98,8 @@ class ContentForm extends Component {
     }
     addItem(type) {
         this.state.num.push({ key: this.state.key, type })
-        this.setState({ key: this.state.key + 1 })
+        // this.setState({ key: this.state.key++ })
+        this.state.key++
         this.setState(this.state)
     }
     removeItem(k) {
