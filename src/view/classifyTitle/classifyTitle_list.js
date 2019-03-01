@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 import AddifyTitle from '../../components/classifyTitle_control'
 
 import {
@@ -7,6 +8,12 @@ import {
 } from 'antd';
 
 import { Request } from '../../utils/axiosRequest'
+
+
+async function delContent(_id) {
+    let result = await Request("/content/delContent", "post", { _id })
+    console.log(result)
+}
 
 function expandedRowRender(record) {
     let data = [];
@@ -28,10 +35,10 @@ function expandedRowRender(record) {
             dataIndex: 'operation',
             key: '_id',
             align: 'center',
-            render: () => (
+            render: (text, record) => (
                 <span className="table-operation">
                     <Button type="primary" style={{ marginRight: 10 }}>编辑</Button>
-                    <Button type="danger">删除</Button>
+                    <Button type="danger" onClick={() => { delContent(record._id) }}>删除</Button>
                 </span>
             ),
         },
