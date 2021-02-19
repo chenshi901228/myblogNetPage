@@ -1,82 +1,81 @@
 import React, { Component } from 'react'
-import { Select, Form, Input, Button, DatePicker, Icon, message } from 'antd';
+import { Select, Form, Input, Button, DatePicker, message } from 'antd';
+
+import Editor from 'wangeditor'
 
 
 import { Request } from '../../utils/axiosRequest'
+import { baseUrl } from '../../config/globconf'
 
-import UploadImg from '../../components/uploadImg'
+
+import styles from '../../css/editor.module.css'
+import FormItem from 'antd/lib/form/FormItem';
 
 const Option = Select.Option;
 const { TextArea } = Input;
+let editor = null
 class ContentForm extends Component {
     state = {
         time: null,
-        fileList: [],
-        num: [],
-        key: 0,
-        selectOption: []
+        selectOption: [],
+        editorHtml: ""
     };
     async componentDidMount() {
+        // 获取分类
         let result = await Request("/classifyTitle/findTitle", "post")
         if (result.data.status === "ok") {
-            console.log(result.data.msg)
             this.setState({
                 selectOption: result.data.msg
             })
         }
+        //富文本相关设置
+        let el = document.querySelector("#box")
+        editor = new Editor(el)
+        editor.config.height = 400
+        editor.config.customUploadImg = function (resultFiles, insertImgFn) {
+            // resultFiles 是 input 中选中的文件列表
+            // insertImgFn 是获取图片 url 后，插入到编辑器的方法
+            resultFiles.map(async item => {
+                let formData = new FormData();
+                formData.append('file', item);
+                let img_res = await Request("/upload", "post", formData)
+                insertImgFn(baseUrl + img_res.data.msg.url)
+            })
+            // 上传图片，返回结果，将图片插入到编辑器中
+        }
+        editor.config.onchange = (html) => {
+            this.setState({
+                editorHtml: html
+            })
+        }
+        editor.config.onchangeTimeout = 1000
+        editor.create()
+    }
+
+    componentWillUnmount() {
+        // 销毁编辑器
+        new Editor(document.querySelector("#box")).destroy()
     }
     handleSubmit = (e) => {
-        let t = {}; t.imgs = []
+        let t = {};
         e.preventDefault();
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
-                Object.assign(t, values, { time: this.state.time })
-                let { fileList } = this.state;
-                if (fileList.length > 0) {
-                    fileList.map(async item => {
-                        var formData = new FormData();
-                        formData.append('file', item.file);
-                        let img_res = await Request("/upload", "post", formData)
-                        if (img_res.data.status === "ok") {
-                            t.imgs.push({ key: item.key, url: img_res.data.msg.url })
-                        } else {
-                            message.error(img_res.data.msg)
-                        }
-                        if (t.imgs.length === fileList.length) {
-                            let result = await Request("/content/newContent", "post", t)
-                            if (result.data.status === "ok") {
-                                message.success("添加文章成功")
-                                this.props.form.resetFields()
-                                this.setState({
-                                    num: [],
-                                    fileList: [],
-                                    key: 0,
-                                    time: null
-                                })
-                            } else {
-                                message.error(result.data.msg)
-                            }
-                        }
+                Object.assign(t, values, { time: this.state.time }, { editorHtml: this.state.editorHtml })
+                let result = await Request("/content/newContent", "post", t)
+                if (result.data.status === "ok") {
+                    message.success("添加文章成功")
+                    this.props.form.resetFields()
+                    new Editor(document.querySelector("#box")).txt.clear()   //清空编辑器
+                    this.setState({
+                        time: null,
                     })
                 } else {
-                    let result = await Request("/content/newContent", "post", t)
-                    if (result.data.status === "ok") {
-                        message.success("添加文章成功")
-                        this.props.form.resetFields()
-                        this.setState({
-                            num: [],
-                            fileList: [],
-                            key: 0,
-                            time: null
-                        })
-                    } else {
-                        message.error(result.data.msg)
-                    }
+                    message.error(result.data.msg)
                 }
             }
         });
     }
-    handleCancel = () => this.setState({ previewVisible: false })
 
     timeChange = (i, value) => {
         this.setState({
@@ -84,41 +83,6 @@ class ContentForm extends Component {
         });
     }
 
-    handleUploadImg(e, k) {
-        if (e.length === 1) {
-            this.state.fileList.push({ key: k, file: e[0].originFileObj })
-        } else {
-            this.state.fileList.filter((item, index) => {
-                if (item.key === k) {
-                    this.state.fileList.splice(index, 1)
-                }
-                return this.state.fileList
-            })
-        }
-    }
-    addItem(type) {
-        this.state.num.push({ key: this.state.key, type })
-        // this.setState({ key: this.state.key++ })
-        this.state.key++
-        this.setState(this.state)
-    }
-    removeItem(k) {
-        this.state.num.filter((item, index) => {
-            if (k === item.key) {
-                this.state.num.splice(index, 1)
-                if (item.type === "图片") {
-                    this.state.fileList.filter((itemX, indexX) => {
-                        if (itemX.key === k) {
-                            this.state.fileList.splice(indexX, 1)
-                        }
-                        return this.state.fileList
-                    })
-                }
-            }
-            return this.state.num
-        })
-        this.setState(this.state)
-    }
     render() {
         // 表单相关
         const { getFieldDecorator } = this.props.form;
@@ -128,58 +92,6 @@ class ContentForm extends Component {
                 sm: { span: 20, offset: 2 },
             },
         }
-        const newContent = (
-            <div>
-                {this.state.num.map(item => {
-                    if (item.type === "标题") {
-                        return <Form.Item
-                            label="小标题"
-                            labelCol={{ span: 2 }}
-                            wrapperCol={{ span: 4 }}
-                            colon
-                            key={item.key}
-                        >
-                            {getFieldDecorator('subTitle' + item.key, {
-                                rules: [{ required: false, message: '' }],
-                            })(
-                                <div>
-                                    <Input style={{ width: "80%", marginRight: 10 }} placeholder="请输入小标题" />
-                                    <Button shape="circle" icon="close" onClick={() => { this.removeItem(item.key) }} />
-                                </div>
-                            )}
-                        </Form.Item>
-                    } else if (item.type === "内容") {
-                        return <Form.Item
-                            label="内容"
-                            labelCol={{ span: 2 }}
-                            wrapperCol={{ span: 10 }}
-                            colon
-                            key={item.key}
-                        >
-                            {getFieldDecorator("content" + item.key, {
-                                rules: [{ required: false, message: '请输入内容!' }],
-                            })(
-                                <div>
-                                    <TextArea style={{ width: "80%", marginRight: 10 }} placeholder="请输入内容" autosize={{ minRows: 6 }} />
-                                    <Button shape="circle" icon="close" onClick={() => { this.removeItem(item.key) }} />
-                                </div>
-                            )}
-                        </Form.Item>
-                    } else {
-                        return <Form.Item
-                            label="显示图片"
-                            labelCol={{ span: 2 }}
-                            wrapperCol={{ span: 10 }}
-                            colon
-                            key={item.key}
-                        >
-                            <UploadImg handleUploadImg={(e) => { this.handleUploadImg(e, item.key) }} />
-                            <Button shape="circle" icon="close" onClick={() => { this.removeItem(item.key) }} />
-                        </Form.Item>
-                    }
-                })}
-            </div>
-        )
         return (
             <div>
                 <Form layout="horizontal" onSubmit={this.handleSubmit}>
@@ -228,7 +140,14 @@ class ContentForm extends Component {
                             <TextArea placeholder="请输入简单介绍" autosize={{ minRows: 2, maxRows: 6 }} />
                         )}
                     </Form.Item>
-                    {newContent}
+                    <FormItem
+                        label="正文"
+                        labelCol={{ span: 2 }}
+                        wrapperCol={{ span: 20 }}
+                        colon>
+                        <div id="box" className={styles.box}>
+                        </div>
+                    </FormItem>
                     <Form.Item
                         label="日期"
                         labelCol={{ span: 2 }}
@@ -241,17 +160,6 @@ class ContentForm extends Component {
                             placeholder="请选择日期"
                             onChange={this.timeChange}
                         />
-                    </Form.Item>
-                    <Form.Item {...formItemSubmit}>
-                        <Button type="dashed" style={{ marginRight: 10 }} onClick={() => { this.addItem("标题") }}>
-                            <Icon type="plus" /> 添加标题
-                        </Button>
-                        <Button type="dashed" style={{ marginRight: 10 }} onClick={() => { this.addItem("内容") }}>
-                            <Icon type="plus" /> 添加内容
-                        </Button>
-                        <Button type="dashed" onClick={() => { this.addItem("图片") }}>
-                            <Icon type="plus" /> 添加图片
-                        </Button>
                     </Form.Item>
                     <Form.Item {...formItemSubmit}>
                         <Button type="primary" htmlType="submit">添加此文章</Button>

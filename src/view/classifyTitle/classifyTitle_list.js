@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import AddifyTitle from '../../components/classifyTitle_control'
 
 import {
-    Table, Button
+    Table, Button, message
 } from 'antd';
 
 import { Request } from '../../utils/axiosRequest'
@@ -71,15 +71,20 @@ export default class extends Component {
             this.getifysList()
         }
     }
+    async handleDel(_id) {
+        let res = await Request("/classifyTitle/delTitle", "post", { _id })
+        message.success(res.data.msg)
+        this.getifysList()
+    }
     render() {
         const columns = [
             { title: '分类', dataIndex: 'title', key: 'title' },
             {
                 title: '操作', key: '_id', align: 'center',
-                render: () =>
+                render: (text, record) =>
                     <span>
                         <Button type="primary" style={{ marginRight: 10 }}>编辑</Button>
-                        <Button type="danger">删除</Button>
+                        <Button type="danger" onClick={() => { this.handleDel(record._id) }}>删除</Button>
                     </span>
             },
         ];
