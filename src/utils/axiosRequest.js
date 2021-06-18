@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-import { baseUrl } from '../config/globconf'
+import {
+    baseUrl
+} from '../config/globconf'
 
 
 /**
@@ -11,18 +13,25 @@ import { baseUrl } from '../config/globconf'
  */
 
 export function Request(url, method, params = {}) {
-
-    if (method === "post") {
+    if (JSON.stringify(params) !== "{}") {
         return new Promise((resolve, reject) => {
-            axios.post(baseUrl + url, params)
-                .then(res => { resolve(res) })
-                .catch(error => { reject(error) })
+            axios[method](baseUrl + url, params)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(error => {
+                    reject(error)
+                })
         })
     } else {
         return new Promise((resolve, reject) => {
-            axios.get(baseUrl + url, params)
-                .then(res => { resolve(res) })
-                .catch(error => { reject(error) })
+            axios[method](baseUrl + url)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(error => {
+                    reject(error)
+                })
         })
     }
 }

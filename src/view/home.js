@@ -2,19 +2,21 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
 
+import { Layout, Menu } from 'antd'
+import { UserOutlined, UnorderedListOutlined } from '@ant-design/icons'
+
 // import Hello from './hello'
+
 import User from './user/user'
 import IfyTitle_list from './classifyTitle/classifyTitle_list'
 import IfyTitle_content from './classifyTitle/classify_content'
 
 
 
-import { Layout, Menu, Icon, } from 'antd';
-
 const { Header, Content, Footer, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+const { SubMenu } = Menu;
 
-export default class extends Component {
+export default class Home extends Component {
     state = {
         defaultSelectedKey: "1",
         defaultOpenKey: "ify"
@@ -32,13 +34,13 @@ export default class extends Component {
                         // defaultSelectedKeys={[this.state.defaultSelectedKey]}
                         mode="inline"
                     >
-                        <Menu.Item key="1">
-                            <Icon type="user" />
+                        <Menu.Item key="1" icon={<UserOutlined />}>
                             <Link style={{ display: "inline-block" }} to="/user">当前用户</Link>
                         </Menu.Item>
                         <SubMenu
                             key="ify"
-                            title={<span><Icon type="bars" /><span>导航分类</span></span>}
+                            icon={<UnorderedListOutlined />}
+                            title={<span>导航分类</span>}
                         >
                             <Menu.Item key="2">
                                 <Link to="/ify_list">分类列表</Link>
@@ -65,6 +67,6 @@ export default class extends Component {
                     </Footer>
                 </Layout>
             </Layout>
-        );
+        )
     }
 }
