@@ -1,11 +1,15 @@
 
-import React, { Component } from 'react'
+import React, { useState,useEffect } from 'react'
 
 
-export default class extends Component {
-    render() {
-        return (
-            <p>hello,wolcome to my blog</p>
-        )
-    }
+export default function Hello(props) {
+    useEffect(()=>{
+        let localLogin = localStorage.getItem("userInfo")
+        if(localLogin!=null){
+            props.history.replace("/user")
+        }
+    },[])
+    return (
+        <p>hello,wolcome to my blog</p>
+    )
 }

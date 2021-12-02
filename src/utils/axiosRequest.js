@@ -12,10 +12,35 @@ import {
  * @return 返回Promise
  */
 
+const http = axios.create({
+    baseURL: baseUrl,
+    timeout: 5000,
+})
+
+// 请求拦截
+http.interceptors.request.use(config => {
+    return config
+}, err => {
+    return Promise.reject(err)
+})
+
+// 响应拦截
+http.interceptors.response.use(res => {
+    if (res.status === 200) {
+        return res.data
+    } else {
+        return res
+    }
+}, err => {
+    Promise.reject(err)
+})
+
+
 export function Request(url, method, params = {}) {
     if (JSON.stringify(params) !== "{}") {
+        params = JSON.stringify(params)
         return new Promise((resolve, reject) => {
-            axios[method](baseUrl + url, params)
+            http[method](baseUrl + url, params)
                 .then(res => {
                     resolve(res)
                 })
@@ -25,7 +50,7 @@ export function Request(url, method, params = {}) {
         })
     } else {
         return new Promise((resolve, reject) => {
-            axios[method](baseUrl + url)
+            http[method](baseUrl + url)
                 .then(res => {
                     resolve(res)
                 })

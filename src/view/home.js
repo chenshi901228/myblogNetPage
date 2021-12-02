@@ -1,15 +1,12 @@
 
 import React, { Component } from 'react'
-import { Route, Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 
 import { Layout, Menu } from 'antd'
 import { UserOutlined, UnorderedListOutlined } from '@ant-design/icons'
 
-// import Hello from './hello'
 
-import User from './user/user'
-import IfyTitle_list from './classifyTitle/classifyTitle_list'
-import IfyTitle_content from './classifyTitle/classify_content'
+import Routes from '../router/route'
 
 
 
@@ -19,8 +16,11 @@ const { SubMenu } = Menu;
 export default class Home extends Component {
     state = {
         defaultSelectedKey: "1",
-        defaultOpenKey: "ify"
+        defaultOpenKey: "2"
     };
+    openChange(value){
+        console.log(value)
+    }
     render() {
         return (
             <Layout style={{ minHeight: '100vh' }}>
@@ -30,23 +30,23 @@ export default class Home extends Component {
                     <Menu
                         theme="dark"
                         onOpenChange={this.openChange}
-                        // defaultOpenKeys={[this.state.defaultOpenKey]}
-                        // defaultSelectedKeys={[this.state.defaultSelectedKey]}
+                        defaultOpenKeys={[this.state.defaultOpenKey]}
+                        defaultSelectedKeys={[this.state.defaultSelectedKey]}
                         mode="inline"
                     >
                         <Menu.Item key="1" icon={<UserOutlined />}>
                             <Link style={{ display: "inline-block" }} to="/user">当前用户</Link>
                         </Menu.Item>
                         <SubMenu
-                            key="ify"
+                            key="2"
                             icon={<UnorderedListOutlined />}
                             title={<span>导航分类</span>}
                         >
-                            <Menu.Item key="2">
-                                <Link to="/ify_list">分类列表</Link>
+                            <Menu.Item key="2-1">
+                                <Link to="/classifyTitleList">分类列表</Link>
                             </Menu.Item>
-                            <Menu.Item key="3">
-                                <Link to="/ify_content">添加内容</Link>
+                            <Menu.Item key="2-2">
+                                <Link to="/classifyContent">添加内容</Link>
                             </Menu.Item>
                         </SubMenu>
                     </Menu>
@@ -56,14 +56,10 @@ export default class Home extends Component {
                         myblog
                     </Header>
                     <Content style={{ margin: '20px 16px' }}>
-                        <div>
-                            <Route path="/user" component={User} />
-                            <Route path="/ify_list" component={IfyTitle_list} />
-                            <Route path="/ify_content" component={IfyTitle_content} />
-                        </div>
+                        <Routes />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                        Ant Design ©2018 Created by Ant UED
+                        Ant Design ©{new Date().getFullYear()} Created by Ant UED
                     </Footer>
                 </Layout>
             </Layout>

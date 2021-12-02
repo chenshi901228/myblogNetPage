@@ -1,22 +1,22 @@
 
 
 import React, { Component } from 'react'
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
+import Hello from '../view/hello';
+import User from '../view/user/user';
+import ClassifyTitleList from '../view/classifyTitle/classifyTitle_list';
+import ClassifyContent from '../view/classifyTitle/classify_content'
 
-
-import Home from '../view/home'
-// import Home from '../view/home'
-// import My from '../view/my'
-
-export default class extends Component {
+export default class Routes extends Component {
     render() {
         return (
-            <div>
-                <Route exact path="/" component={Home} />
-                {/* <Route path="/home" component={Home} />
-                <Route path="/my" component={My} /> */}
-            </div>
+            <Switch>
+                <Route exact path="/" component={Hello} />
+                <Route path="/user" component={User} />
+                <Route path="/classifyTitleList" component={ClassifyTitleList} />
+                <Route path="/classifyContent" component={ClassifyContent} />
+            </Switch>
         )
     }
 }

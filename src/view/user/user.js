@@ -1,25 +1,32 @@
 
 import { useState, useEffect } from 'react'
 
-export default function User() {
-    const [count, setCount] = useState(0);
-    const [age, setAge] = useState(18)
+import { Request } from '../../utils/axiosRequest'
+
+export default function User(props) {
+    const [userInfo, setUserInfo] = useState({})
     useEffect(() => {
-        console.log("componentdidmount")
-    }, [])
-    useEffect(() => {
-        console.log("update")
-    }, [age])
-    useEffect(() => {
-        return function clean() {
-            console.log("clean")
+        const getUserInfo = async () => {
+            let data = await Request("getUserInfo", "post", { name: "小黑不简单" })
+            console.log(data)
+            setUserInfo(data)
         }
+        getUserInfo()
     }, [])
+    async function login() {
+        props.history.push({ pathname: "/classifyContent", state: { id: 0 } })
+        let data = await Request("login", "post", { userName: "小黑不简单", password: "12345678" })
+        if (data.status === "ok") {
+            localStorage.setItem("userInfo", JSON.stringify(data.userInfo))
+        }
+    }
     return (
         <div>
-            <p>user:{count}</p>
-            <p>age:{age}</p>
-            <button onClick={() => setCount(count + 1)}>click</button>
+            <p>用户名:{userInfo.userName}</p>
+            <p>密码:{userInfo.password}</p>
+            <p>邮箱:{userInfo.email}</p>
+            <p>手机:{userInfo.phone}</p>
+            <button onClick={() => { login() }}>Login</button>
         </div>
     )
 }
